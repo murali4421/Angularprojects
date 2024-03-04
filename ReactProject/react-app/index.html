@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+        <script type="module" src="/src/main.jsx"></script>
+    --> 
+    
+    <script type="text/babel">
+    
+    const books = ["The Life of Pie","Human","Nature","The world"];
+    const bookObject = books.map((book,i)=> ({
+          id: i,
+          title: book
+          })
+          );
+
+        function SiteHeader(Props) 
+        {
+          return (
+            <header>
+              <h2> { Props.name } </h2>
+            </header>);
+        }        
+
+        function SiteBody(Props)
+        {
+          return(
+            <div>
+              <ul>
+                { 
+                  Props.books.map((book)=> 
+                  (<li key={book.id}>{ book.title }</li>))
+                }
+              </ul>
+            </div>
+          );
+        }
+
+        function WebPage()
+        {
+            return(<div>            
+              <SiteHeader name="React App"/>
+              <SiteBody books={bookObject}/>              
+            </div>);
+        }
+        const root = document.getElementById('root');
+        console.log(bookObject);
+        let div = React.createElement("ul",null, 
+                  React.createElement("li", {style : {color : "blue"}} , "Blue"),
+                  React.createElement("li", {style : {color : "red"}} , "Red"), 
+                  React.createElement("li", {style : {color : "yellow"}} , "Yellow"));
+                         
+        ReactDOM.render(<WebPage />, root);
+    </script>
+  </body>
+</html>
