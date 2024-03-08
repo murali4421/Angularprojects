@@ -2,11 +2,13 @@
 import React from "react";
 // Importing Link from react-router-dom to 
 // navigate to different end points.
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 
-function Home(OnSendContacts)
+
+function Home(props)
 {
+    
     const [ContactBook, setContactBook] = useState([{
         name : "",
         number : "",
@@ -24,11 +26,11 @@ function Home(OnSendContacts)
 		fetchContact()
 	},[fetchContact]);
 
-
-    if(OnSendContacts !== "")
-    {
-        ContactBook.push(OnSendContacts);
-    }   
+    
+    // if(location.state !=="")
+    // {
+    //     ContactBook.push(location.state);
+    // }   
 
     return (
 		// <div >
@@ -94,10 +96,10 @@ function Home(OnSendContacts)
                 </td>
                 <td class="relative px-4 first:pl-[var(--gutter,theme(spacing.2))] last:pr-[var(--gutter,theme(spacing.2))] border-b border-zinc-950/5 dark:border-white/5 py-4 sm:first:pl-2 sm:last:pr-2">
                     <div class="-mx-3 -my-1.5 sm:-mx-2.5">                    
-                        <button
+                        <Link to='/user/AddContact' 
                            className="relative isolate inline-flex items-center justify-center gap-x-2 rounded-lg border text-base/6 font-semibold px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)] sm:text-sm/6 focus:outline-none data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-blue-500 data-[disabled]:opacity-50 [&>[data-slot=icon]]:-mx-0.5 [&>[data-slot=icon]]:my-0.5 [&>[data-slot=icon]]:size-5 [&>[data-slot=icon]]:shrink-0 [&>[data-slot=icon]]:text-[--btn-icon] [&>[data-slot=icon]]:sm:my-1 [&>[data-slot=icon]]:sm:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:data-[hover]:[--btn-icon:ButtonText] border-zinc-950/10 text-zinc-950 data-[active]:bg-zinc-950/[2.5%] data-[hover]:bg-zinc-950/[2.5%] dark:border-white/15 dark:text-white dark:[--btn-bg:transparent] dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 [--btn-icon:theme(colors.zinc.500)] data-[active]:[--btn-icon:theme(colors.zinc.700)] data-[hover]:[--btn-icon:theme(colors.zinc.700)] dark:data-[active]:[--btn-icon:theme(colors.zinc.400)] dark:data-[hover]:[--btn-icon:theme(colors.zinc.400)] cursor-default" >
                          Edit
-                        </button>
+                        </Link>
                     </div>
                 </td>
             </tr>

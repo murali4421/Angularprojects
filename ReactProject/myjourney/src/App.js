@@ -11,6 +11,13 @@ import ContactUs from "./components/ContactUs";
 import Contact from "./components/user/AddContact";
 import Registration from "./components/user/Registration";
 
+const DataClear = {
+    name : "",
+    number : "",
+    email : "",
+    created_date: ""
+}
+
 function App() {
 	return (
 			<Router>
@@ -18,7 +25,6 @@ function App() {
 					<Route
 						exact
 						path="/"
-						OnSendContacts=""
 						element={<ContactList />}
 					/>
 					<Route
