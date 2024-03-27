@@ -1,0 +1,33 @@
+<mat-card>
+
+  <h2 class="new-entry-form-label" id="lblTitle">{{ lblTitle }}</h2>
+  <form [formGroup]="newContact" class="new-entry-form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput class="new-entry-field" formControlName="name" maxlength="40"
+             required onkeydown="return /[a-z]/i.test(event.key)" />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Phone No</mat-label>
+      <input matInput class="new-entry-field" maxlength="12" formControlName="phone" onlyNumber required />
+
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label>Email Address</mat-label>
+      <input matInput class="new-entry-field" formControlName="email" maxlength="60"
+             [formControl]="emailFormControl" required />
+      <mat-error *ngIf="emailFormControl.hasError('email')">
+        Please enter a valid email
+      </mat-error>
+
+    </mat-form-field>
+    <br />
+    <button mat-raised-button id="btnSubmit" color="primary" [disabled]="!formValid.valid">{{ submitButtonName }}</button>
+    <br />
+    <mat-error *ngIf="submitResult =='error'">
+      Server issue, please try again later.
+    </mat-error>
+  </form>
+</mat-card>

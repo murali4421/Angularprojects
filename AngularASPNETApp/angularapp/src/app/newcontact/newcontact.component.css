@@ -1,0 +1,21 @@
+.new-entry-form {
+  margin-top: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 5%;
+}
+
+.new-entry-form-label {
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 0%;
+}
+
+.new-entry-field {
+  width: 100%;
+}
+
+.new-form-btn {
+  position: relative;
+}

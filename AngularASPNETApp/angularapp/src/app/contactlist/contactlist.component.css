@@ -1,0 +1,32 @@
+table{
+    width : 100%;
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+.search-field {
+  margin-top: 1%;
+  margin-left: 78%;
+  margin-right: 10%;
+  width: 20%;
+  margin-top: 10px;
+  height: 25px;
+  border-inline-color: none;
+  align-items: end;
+  text-decoration-line: blink;
+  font-size: medium;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.delete-pointer {
+  margin-left:8px;
+  color:red;
+  cursor: pointer;
+}
+.edit-pointer {
+  margin-left: 8px;
+  color: blue;
+  cursor: pointer;
+}
