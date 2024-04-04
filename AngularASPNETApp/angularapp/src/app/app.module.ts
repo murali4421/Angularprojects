@@ -1,5 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Input, NgModule } from '@angular/core';
+import {
+  Input, NgModule, ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
 
@@ -30,7 +35,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { Router } from '@angular/router';
-
+import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -53,7 +60,10 @@ import { Router } from '@angular/router';
     MatTableModule, MatToolbarModule, 
     ReactiveFormsModule, MatFormFieldModule, MatInputModule,
 
-    MatMenuModule, MatButtonModule      
+    MatMenuModule, MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule
       
   ],
   providers: [ContactlistService],
@@ -61,6 +71,6 @@ import { Router } from '@angular/router';
 })
 export class AppModule {
   constructor(private router: Router) {
-    this.router.navigate(['contactlist']);
+    this.router.navigate(['AddContact']);
   }
 }

@@ -1,0 +1,33 @@
+<mat-card>
+
+  <span>
+    <h2 class="new-entry-form-label" id="lblTitl">Login</h2>
+  </span>
+
+  <form  class="new-entry-form">
+
+    <mat-form-field class="new-entry-field">
+      <mat-label>User Name</mat-label>
+      <input matInput maxlength="20" autofocus
+             required onkeydown="return /[a-z]/i.test(event.key)" />
+      <mat-icon matSuffix>contacts</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="new-entry-field">
+      <mat-label>Password</mat-label>
+      <input matInput maxlength="18" minlength="10" type="password" required />
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    
+    <br />
+    <button class="new-form-btn" mat-raised-button id="btnSubmit" color="primary" >Login</button>
+    <br />
+    <br />
+    <div class="new-entry-field">
+      <!--<mat-error *ngIf="submitResult =='error'">
+        Server issue, please try again later.
+      </mat-error>-->
+    </div>
+
+  </form>
+</mat-card>

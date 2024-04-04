@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using webapi.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Common;
+using System.Runtime.ConstrainedExecution;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddMvc();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//string? connectionString = builder.Configuration.GetConnectionString("PostgreConnectionString");
+//builder.Services.AddDbContext<ContactContext>(options => options.UseNpgsql(connectionString));
+
 builder.Services.AddDbContext<ContactContext>(db => db.UseInMemoryDatabase("ContactDB"));
 
 //builder.Services.AddCors(op =>

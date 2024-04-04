@@ -22,15 +22,15 @@ namespace webapi.Controllers
         [System.Web.Http.HttpGet]
         public IActionResult ContactList()
         {   
-            return new JsonResult(this.dbContact.Contacts.ToList());
+            return new JsonResult(this.dbContact.Contact.ToList());
         }
 
         [Microsoft.AspNetCore.Mvc.Route("AddContact")]
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public ActionResult AddContact([Microsoft.AspNetCore.Mvc.FromBody] Contact contact)
         {
-            this.dbContact.Contacts.Add(contact);
-            this.dbContact.SaveChangesAsync();
+            this.dbContact.Contact.Add(contact);
+            this.dbContact.SaveChanges();
             return new JsonResult("Created");
         }
 
@@ -38,13 +38,13 @@ namespace webapi.Controllers
         [Microsoft.AspNetCore.Mvc.HttpPost]
         public IActionResult UpdateContact([System.Web.Http.FromBody] Contact contact)
         {
-            var filterData = this.dbContact.Contacts.Where(x=> x.Id == contact.Id).FirstOrDefault();
+            var filterData = this.dbContact.Contact.Where(x=> x.Id == contact.Id).FirstOrDefault();
             if(filterData == null)
             {
                 return new JsonResult("Contact details not found");
             }
-            this.dbContact.Contacts.Remove(filterData);
-            this.dbContact.Contacts.Add(contact);
+            this.dbContact.Contact.Remove(filterData);
+            this.dbContact.Contact.Add(contact);
             this.dbContact.SaveChangesAsync();
             return new JsonResult("Updated");
         }
@@ -53,12 +53,12 @@ namespace webapi.Controllers
         [Microsoft.AspNetCore.Mvc.HttpGet]
         public IActionResult DeleteContact([System.Web.Http.FromUri] int id)
         {
-            var filterData = this.dbContact.Contacts.Where(x => x.Id == id).FirstOrDefault();
+            var filterData = this.dbContact.Contact.Where(x => x.Id == id).FirstOrDefault();
             if (filterData == null)
             {
                 return new JsonResult("Contact details not found");
             }
-            this.dbContact.Contacts.Remove(filterData);
+            this.dbContact.Contact.Remove(filterData);
             this.dbContact.SaveChangesAsync();
             return new JsonResult("Deleted");
         }

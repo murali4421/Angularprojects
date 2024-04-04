@@ -4,10 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactlistComponent } from './contactlist/contactlist.component';
 import { NewcontactComponent } from './newcontact/newcontact.component';
 import { Input, NgModule } from '@angular/core';
+import { userComponent } from './user/user.component';
 
 const routes: Routes = [
-  { path: "contactlist", component: ContactlistComponent},
-  { path: "newcontact", component: NewcontactComponent }
+  { path: "Contacts", component: ContactlistComponent},
+  { path: "AddContact", component: NewcontactComponent },
+  { path: "ContactUpdate", component: NewcontactComponent },
+  { path: "Login", component: userComponent }
 ];
 
 @NgModule({

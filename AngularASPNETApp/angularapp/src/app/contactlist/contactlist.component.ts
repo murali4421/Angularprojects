@@ -19,7 +19,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ContactlistComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phone', 'email','action']
+  displayedColumns: string[] = ['id', 'name', 'phone', 'email','dob','gender','action']
   dataSource = new MatTableDataSource<Contact, MatPaginator>();
   tempDataSource = new MatTableDataSource<Contact, MatPaginator>();
   length = 0;
@@ -111,7 +111,7 @@ export class ContactlistComponent implements AfterViewInit {
 
   onEditContact(data: Contact) {
     this.service.setEditingDataSharing(data);
-    this.router.navigate(['newcontact'])
+    this.router.navigate(['ContactUpdate'])
   }
 
   toggleSearch: boolean = false;

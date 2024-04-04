@@ -4,8 +4,7 @@ namespace webapi.Models
 {
     public class ContactContext : DbContext
     {
-        public ContactContext(DbContextOptions dbContext) : base(dbContext) { }
-
-        public DbSet<Contact> Contacts { get; set; }
+        public ContactContext(DbContextOptions dbContext) : base(dbContext){}
+        public DbSet<Contact> Contact { get; set; }
     }
 }
