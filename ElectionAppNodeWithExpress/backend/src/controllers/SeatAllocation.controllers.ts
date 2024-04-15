@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 // Import the PostgreSQL connection pool from database.ts
-import { pool } from '../database';
+import { pool } from './db/database';
 
 
 // Controller for a new seat allocation

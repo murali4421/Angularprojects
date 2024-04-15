@@ -1,7 +1,7 @@
 // Import necessary types from Express
 import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
-import { pool } from '../database';
+import { pool } from './db/database';
 
 export const createStorageCategoryType = async (req: Request, res: Response): Promise<Response> => {
     const citys = getAllStorageCategoryTypes(req, res);
