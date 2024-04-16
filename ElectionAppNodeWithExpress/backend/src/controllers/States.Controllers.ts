@@ -9,11 +9,7 @@ export const createState = async (req: Request, res: Response): Promise<Response
     const { country_id, state } = req.body;    
     await pool.query('INSERT INTO CityMaster(id, State, Country_id) VALUES ($1, $2, $3)', [id, state, country_id ]);
     return res.status(201).json({
-      message: 'Created',
-      State: {
-        id,
-        state
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateState = async (req: Request, res: Response): Promise<Response
     try {
       await pool.query('UPDATE StateMaster SET State=$1, Country_id=$2 WHERE id = $3', [State, Country_id, id]);      
       return res.json({
-        message: 'Updated',
-        State: {
-          id,
-          State
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);

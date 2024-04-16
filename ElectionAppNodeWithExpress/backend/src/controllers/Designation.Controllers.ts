@@ -9,11 +9,7 @@ export const createDesignation = async (req: Request, res: Response): Promise<Re
     const { Designation } = req.body;    
     await pool.query('INSERT INTO DesignationMaster(id, Designation) VALUES ($1, $2)', [id, Designation ]);
     return res.status(201).json({
-      message: 'Created',
-      Designation: {
-        id,
-        Designation
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateDesignation = async (req: Request, res: Response): Promise<Re
     try {
       await pool.query('UPDATE DesignationMaster SET Designation=$1 WHERE id = $2', [Designation, id]);      
       return res.json({
-        message: 'Updated',
-        Designation: {
-          id,
-          Designation
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);

@@ -9,11 +9,7 @@ export const createStorageCategoryTypeValue = async (req: Request, res: Response
     const { Category_id, StorageCategoryType_id, StorageCategoryTypeValue } = req.body;    
     await pool.query('INSERT INTO StorageCategoryTypeValueMaster(id, Category_id, StorageCategoryType_id, StorageCategoryTypeValue) VALUES ($1, $2, $3, $4)', [id, Category_id, StorageCategoryType_id, StorageCategoryTypeValue ]);
     return res.status(201).json({
-      message: 'Created',
-      CategoryTypeValue: {
-        id,
-        StorageCategoryTypeValue
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateStorageCategoryTypeValue = async (req: Request, res: Response
     try {
       await pool.query('UPDATE StorageCategoryTypeValueMaster SET Category_id=$1, StorageCategoryType_id=$2, StorageCategoryTypeValue=$3 WHERE id = $4', [Category_id, StorageCategoryType_id, StorageCategoryTypeValue, id]);      
       return res.json({
-        message: 'Updated',
-        CategoryTypeValue: {
-          id,
-          StorageCategoryTypeValue
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);
@@ -61,7 +53,7 @@ export const deleteStorageCategoryTypeValue = async (req: Request, res: Response
     const id = parseInt(req.params.id);
     try {
       await pool.query('DELETE FROM StorageCategoryTypeValueMaster WHERE id = $1', [id]);
-      return res.status(200).json(`City deleted`);
+      return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);
       return res.status(500).json('Internal Server error');

@@ -9,11 +9,7 @@ export const createCity = async (req: Request, res: Response): Promise<Response>
     const { country_id, state_id ,city_name } = req.body;    
     await pool.query('INSERT INTO CityMaster(id, City, State_Id, Country_id) VALUES ($1, $2, $3, $4)', [id, city_name, state_id, country_id ]);
     return res.status(201).json({
-      message: 'Created',
-      CityDetail: {
-        id,
-        city_name
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateCity = async (req: Request, res: Response): Promise<Response>
     try {
       await pool.query('UPDATE CityMaster SET City=$1, State_Id=$2, Country_id=$3 WHERE id = $4', [City, State_Id, Country_id, id]);      
       return res.json({
-        message: 'Updated',
-        CityDetail: {
-          id,
-          City
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);
@@ -61,7 +53,7 @@ export const deleteCity = async (req: Request, res: Response): Promise<Response>
     const id = parseInt(req.params.id);
     try {
       await pool.query('DELETE FROM CityMaster WHERE id = $1', [id]);
-      return res.status(200).json(`City deleted`);
+      return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);
       return res.status(500).json('Internal Server error');

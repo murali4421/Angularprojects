@@ -9,11 +9,7 @@ export const createStorageCategoryType = async (req: Request, res: Response): Pr
     const { Category_id, Storage_Category_Type } = req.body;    
     await pool.query('INSERT INTO StorageCategoryTypeMaster(id, Category_id, Storage_Category_Type) VALUES ($1, $2, $3)', [id, Category_id, Storage_Category_Type ]);
     return res.status(201).json({
-      message: 'Created',
-      StorageCategoryType: {
-        id,
-        Storage_Category_Type
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateStorageCategoryType = async (req: Request, res: Response): Pr
     try {
       await pool.query('UPDATE StorageCategoryTypeMaster SET Category_id=$1, Storage_Category_Type=$2 WHERE id = $3', [Category_id, Storage_Category_Type, id]);      
       return res.json({
-        message: 'Updated',
-        StorageCategoryType: {
-          id,
-          Storage_Category_Type
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);

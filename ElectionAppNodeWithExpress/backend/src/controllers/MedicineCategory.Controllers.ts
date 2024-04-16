@@ -9,11 +9,7 @@ export const createCategory = async (req: Request, res: Response): Promise<Respo
     const { Category } = req.body;    
     await pool.query('INSERT INTO CategoryMaster(id, name) VALUES ($1, $2)', [id, Category ]);
     return res.status(201).json({
-      message: 'Created',
-      Category: {
-        id,
-        Category
-      }
+      message: 'Created'
     });
 };
 
@@ -45,11 +41,7 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
     try {
       await pool.query('UPDATE CategoryMaster SET Category=$1 WHERE id = $2', [Category, id]);      
       return res.json({
-        message: 'Updated',
-        Category: {
-          id,
-          Category
-        },
+        message: 'Updated'
       });
     } catch (error) {   
       console.error(error);
