@@ -12,7 +12,10 @@ import { createMedicine, deleteMedicine, getAllMedicine, getMedicineById, update
 import { createCategory, deleteCategory, getAllCategory, getCategoryById, updateCategory} from './src/controllers/MedicineCategory.Controllers';
 import { createStorageCategoryType, deleteStorageCategoryType, getAllStorageCategoryTypes, getStorageCategoryTypeById, updateStorageCategoryType} from './src/controllers/StorageCategoryType.Controllers';
 import { createStorageCategoryTypeValue, deleteStorageCategoryTypeValue, getAllStorageCategoryTypeValues, getStorageCategoryTypeValueById, updateStorageCategoryTypeValue} from './src/controllers/StorageCategoryTypeValue.Controllers';
-
+import { createOrder, getAllOrders, getAllProfileOrders, getDemandMedicineList, getExternalAcceptedOrderList, 
+          getExternalReceivedOrderList, getInternalApprovePendingOrderList, getInternalApprovedOrderList, 
+          getOrderById, getProfileOrderById, setExternalOrderCancel, setInternalOrderApprove, setOrderCancel,
+          updateOrder } from './src/controllers/Orders.Controllers';
 // Create an Express application
 const app = express();
 
@@ -95,7 +98,21 @@ appRouter.get('/Hospital/Employee/N/:name', getEmployeeByName);
 appRouter.post('/Hospital/Employee', createEmployee);
 appRouter.put('/Hospital/Employee/:id', updateEmployee);
 appRouter.delete('/Hospital/Employee/:id', deleteEmployee);
-
+// Define routes for Hospital Order operations using the appRouter
+appRouter.get('/Hospital/Order/All', getAllProfileOrders);
+appRouter.get('/All/Hospital/Orders', getAllOrders);
+appRouter.get('/Hospital/Order/:id', getProfileOrderById);
+appRouter.get('/All/Hospital/Orders/:id', getOrderById);
+appRouter.post('/Hospital/Order', createOrder);
+appRouter.put('/Hospital/Order/:id', updateOrder);
+appRouter.put('/Hospital/Order/:id', setOrderCancel);
+appRouter.put('/Hospital/VdrOrder/Cancel/:id', setExternalOrderCancel);
+appRouter.get('/Hospital/VdrOrders/:id', getExternalReceivedOrderList);
+appRouter.get('/Hospital/VdrOrders/Accepted/:id', getExternalAcceptedOrderList);
+appRouter.get('/Hospital/DemandMedicine/', getDemandMedicineList);
+appRouter.get('/Hospital/Orders/Pending/:id', getInternalApprovePendingOrderList);
+appRouter.get('/Hospital/Orders/Approved/:id', getInternalApprovedOrderList);
+appRouter.put('/Hospital/Orders/Approve/:id', setInternalOrderApprove);
 
 // Define routes for Vendor operations using the appRouter
 appRouter.post('/Ventor', createProfile);
@@ -112,6 +129,20 @@ appRouter.get('/Vendor/Employee/N/:name', getEmployeeByName);
 appRouter.post('/Vendor/Employee', createEmployee);
 appRouter.put('/Vendor/Employee/:id', updateEmployee);
 appRouter.delete('/Vendor/Employee/:id', deleteEmployee);
+// Define routes for Vendor Order operations using the appRouter
+appRouter.get('/Vendor/Order/All', getAllProfileOrders);
+appRouter.get('/All/Vendor/Orders', getAllOrders);
+appRouter.get('/Vendor/Order/:id', getProfileOrderById);
+appRouter.get('/All/Vendor/Orders/:id', getOrderById);
+appRouter.post('/Vendor/Order', createOrder);
+appRouter.put('/Vendor/Order/:id', updateOrder);
+appRouter.put('/Vendor/Order/:id', setOrderCancel);
+appRouter.put('/Vendor/HsplOrder/Cancel/:id', setExternalOrderCancel);
+appRouter.get('/Vendor/HsplOrders/:id', getExternalReceivedOrderList);
+appRouter.get('/Vendor/HsplOrders/Accepted/:id', getExternalAcceptedOrderList);
+appRouter.get('/Vendor/Orders/Pending/:id', getInternalApprovePendingOrderList);
+appRouter.get('/Vendor/Orders/Approved/:id', getInternalApprovedOrderList);
+appRouter.put('/Vendor/Orders/Approve/:id', setInternalOrderApprove);
 
 // Use the appRouter for paths starting with '/api'
 app.use(appRouter);

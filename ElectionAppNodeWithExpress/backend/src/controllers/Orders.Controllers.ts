@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { QueryResult } from 'pg';
 import { pool } from './db/database';
 
-export const table = { name : ''};
+const table = { name : ''};
 let vendorTbl = 'Vendor_Orders';
 let hospitalTbl = 'Hospital_Orders';
 
@@ -123,7 +123,7 @@ export const setInternalOrderApprove = async (req: Request, res: Response): Prom
     try {
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : vendorTbl;
       await pool.query('UPDATE '+ table.name +' SET approved_date=$1, approved_by=$2, approved_flag=$3, reason=$4 WHERE id = $5 and order_cancel is null ', 
-      [approved_date, approved_by, approved_flag, reason,id]);
+      [approved_date, approved_by, approved_flag, reason, id]);
 
       return res.status(200).json(`Deleted`);
     } catch (error) {
@@ -146,7 +146,7 @@ export const getInternalApprovePendingOrderList = async (req: Request, res: Resp
 
 export const getInternalApprovedOrderList = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const id = parseInt(req.params.profile_id);
+        const id = parseInt(req.params.id);
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : vendorTbl;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.name +' where profile_id=$1 and approved_flag=$2 and order_cancel is null order by id asc',[id, 'Y']);  
       return res.status(200).json(response.rows);
@@ -158,7 +158,7 @@ export const getInternalApprovedOrderList = async (req: Request, res: Response):
 
 export const getExternalAcceptedOrderList = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const id = parseInt(req.params.profile_id);
+        const id = parseInt(req.params.id);
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : vendorTbl;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.name +' where profile_id=$1 and order_accepted=$2 and order_cancel is null order by id asc',[id, 'Y']);  
       return res.status(200).json(response.rows);
@@ -170,7 +170,7 @@ export const getExternalAcceptedOrderList = async (req: Request, res: Response):
 
 export const getExternalReceivedOrderList = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const id = parseInt(req.params.profile_id);
+        const id = parseInt(req.params.id);
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : vendorTbl;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.name +' where profile_id=$1 and order_accepted is null and order_cancel is null order by id asc',[id]);  
       return res.status(200).json(response.rows);
@@ -182,7 +182,6 @@ export const getExternalReceivedOrderList = async (req: Request, res: Response):
 
 export const getDemandMedicineList = async (req: Request, res: Response): Promise<Response> => {
     try {
-        const id = parseInt(req.params.profile_id);
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : vendorTbl;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.name +' where approved_flag=$1 and quote_type=$2 and order_cancel is null order by id asc',['Y', 'Public']);  
       return res.status(200).json(response.rows);
