@@ -111,3 +111,23 @@ export const deleteEmployee = async (req: Request, res: Response): Promise<Respo
       return res.status(500).json('Internal Server error');
     }
 }
+
+export const GetUserLoginDetail = async (req: Request, res: Response): Promise<Response> => {
+  const { user_id, passward} = req.body;  
+  try {
+    table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+    const response: QueryResult = await pool.query('SELECT * FROM '+ table.Name +' WHERE user_id = $1 and pwd =$2', [user_id, passward]);
+    
+    if(response.rowCount != null && response.rowCount > 0)
+      {
+        return res.status(200).json('response.rows');
+      }
+      else{
+        return res.status(200).json({ message : 'Invalid user'});
+      }
+    
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json('Internal Server error');
+  }
+}
