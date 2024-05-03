@@ -1,0 +1,127 @@
+
+create table CountryMaster(
+id integer primary key,
+country varchar(250) 
+);
+
+create table StateMaster(
+id integer primary key, 
+State varchar(100), 
+Country_id integer references CountryMaster(id)
+);
+
+create table CityMaster
+(
+id integer primary key, 
+City varchar(100), 
+State_Id integer references StateMaster(id), 
+Country_id integer references CountryMaster(id)
+);
+
+create table DesignationMaster
+(
+	id integer primary key, 
+	Designation varchar(100)
+);
+
+create table CategoryMaster
+(
+	id integer primary key, 
+	name varchar(100)
+);
+
+create table MedicineMaster
+(
+id integer primary key, 
+name varchar(100), 
+Category_id integer references CategoryMaster(id)
+);
+
+create table StorageCategoryTypeMaster
+(
+	id integer primary key, 
+	Category_id integer references CategoryMaster(id), 
+	Storage_Category_Type varchar(100)	
+);
+
+create table StorageCategoryTypeValueMaster
+(
+	id integer primary key, 
+	Category_id integer references CategoryMaster(id) , 
+	StorageCategoryType_id integer references StorageCategoryTypeMaster(id), 
+	StorageCategoryTypeValue decimal
+);
+
+create table supplier_users
+(id integer primary key, 
+ user_id varchar(50), 
+ pwd varchar(30), 
+ name varchar(150), 
+ emp_id varchar(30), 
+ designation_id integer references designationmaster(id), 
+ emplymt_start_date date, 
+ emplymt_end_date date, 
+ mobile_no varchar(20), 
+ email_id varchar(50), 
+ official_email_id varchar(50), 
+ DOB date, 
+ address varchar(250), 
+ city varchar(100), 
+ state varchar(100), 
+ country varchar(100), 
+ pincode varchar(30), 
+ IsActive char(1));
+
+create table Suppliers(
+ id integer primary key, 
+ name varchar(250), 
+ licence_no varchar(50), 
+ registration_no varchar(30), 
+ phone_no varchar(20), 
+ email_id varchar(50), 
+ website varchar(100), 
+ fax_no varchar(30),
+ address varchar(250), 
+ city varchar(100), 
+ state varchar(100), 
+ country varchar(100), 
+ pincode varchar(30), 
+ IsVerified char(1), 
+ RejectedReason varchar(1000), 
+ IsActive char(1));
+
+
+create table Hospital_Orders
+(id integer primary key, 
+ profile_id integer references Hospitals(id), 
+ quote_no varchar(30), 
+ quote_date date, 
+ quote_type varchar(30), 
+ price_type varchar(30), 
+ medicine_Name varchar(300), 
+ description varchar(1000), 
+ qty integer,
+ expiry_date date, 
+ Category integer references categorymaster(id), 
+ storage_type integer references storagecategoryTypemaster(id), 
+ storage_value decimal, 
+ quoted_amount decimal, 
+ expected_date date,
+ created_by varchar(100), 
+ platform_cost decimal, 
+ modified_date date, 
+ modified_by varchar(100), 
+ approved_flag char(1),
+ approved_date date, 
+ approved_by varchar(100), 
+ reason varchar(500), 
+ order_cancel char(1), 
+ order_cancel_by varchar(100), 
+ order_accepted varchar(500));
+
+
+
+
+
+
+

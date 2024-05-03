@@ -7,7 +7,7 @@ export const createState = async (req: Request, res: Response): Promise<Response
     const citys = getAllStates(req, res);
     const id = 0;
     const { country_id, state } = req.body;    
-    await pool.query('INSERT INTO CityMaster(id, State, Country_id) VALUES ($1, $2, $3)', [id, state, country_id ]);
+    await pool.query('INSERT INTO StateMaster(id, State, Country_id) VALUES ($1, $2, $3)', [id, state, country_id ]);
     return res.status(201).json({
       message: 'Created'
     });

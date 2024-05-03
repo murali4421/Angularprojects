@@ -106,43 +106,43 @@ appRouter.get('/All/Hospital/Orders/:id', getOrderById);
 appRouter.post('/Hospital/Order', createOrder);
 appRouter.put('/Hospital/Order/:id', updateOrder);
 appRouter.put('/Hospital/Order/:id', setOrderCancel);
-appRouter.put('/Hospital/VdrOrder/Cancel/:id', setExternalOrderCancel);
-appRouter.get('/Hospital/VdrOrders/:id', getExternalReceivedOrderList);
-appRouter.get('/Hospital/VdrOrders/Accepted/:id', getExternalAcceptedOrderList);
+appRouter.put('/Hospital/SplrOrder/Cancel/:id', setExternalOrderCancel);
+appRouter.get('/Hospital/SplrOrders/:id', getExternalReceivedOrderList);
+appRouter.get('/Hospital/SplrOrders/Accepted/:id', getExternalAcceptedOrderList);
 appRouter.get('/Hospital/DemandMedicine/', getDemandMedicineList);
 appRouter.get('/Hospital/Orders/Pending/:id', getInternalApprovePendingOrderList);
 appRouter.get('/Hospital/Orders/Approved/:id', getInternalApprovedOrderList);
 appRouter.put('/Hospital/Orders/Approve/:id', setInternalOrderApprove);
 
-// Define routes for Vendor operations using the appRouter
-appRouter.post('/Ventor', createProfile);
-appRouter.get('/Ventors', getAllProfiles);
-appRouter.put('/Ventors/:id', updateProfile);
-appRouter.put('/Ventors/Verify/:id', VerifyProfile);
-appRouter.delete('/Ventor/:id', deleteProfile);
-appRouter.get('/Ventor/:id', getProfileById);
-appRouter.get('/Ventor/:name', getProfileByName);
-// Define routes for Vendor employee operations using the appRouter
-appRouter.get('/Vendor/Employee/All', getAllEmployee);
-appRouter.get('/Vendor/Employee/:id', getEmployeeById);
-appRouter.get('/Vendor/Employee/N/:name', getEmployeeByName);
-appRouter.post('/Vendor/Employee', createEmployee);
-appRouter.put('/Vendor/Employee/:id', updateEmployee);
-appRouter.delete('/Vendor/Employee/:id', deleteEmployee);
-// Define routes for Vendor Order operations using the appRouter
-appRouter.get('/Vendor/Order/All', getAllProfileOrders);
-appRouter.get('/All/Vendor/Orders', getAllOrders);
-appRouter.get('/Vendor/Order/:id', getProfileOrderById);
-appRouter.get('/All/Vendor/Orders/:id', getOrderById);
-appRouter.post('/Vendor/Order', createOrder);
-appRouter.put('/Vendor/Order/:id', updateOrder);
-appRouter.put('/Vendor/Order/:id', setOrderCancel);
-appRouter.put('/Vendor/HsplOrder/Cancel/:id', setExternalOrderCancel);
-appRouter.get('/Vendor/HsplOrders/:id', getExternalReceivedOrderList);
-appRouter.get('/Vendor/HsplOrders/Accepted/:id', getExternalAcceptedOrderList);
-appRouter.get('/Vendor/Orders/Pending/:id', getInternalApprovePendingOrderList);
-appRouter.get('/Vendor/Orders/Approved/:id', getInternalApprovedOrderList);
-appRouter.put('/Vendor/Orders/Approve/:id', setInternalOrderApprove);
+// Define routes for Supplier operations using the appRouter
+appRouter.post('/Supplier', createProfile);
+appRouter.get('/Supplier', getAllProfiles);
+appRouter.put('/Supplier/:id', updateProfile);
+appRouter.put('/Supplier/Verify/:id', VerifyProfile);
+appRouter.delete('/Supplier/:id', deleteProfile);
+appRouter.get('/Supplier/:id', getProfileById);
+appRouter.get('/Supplier/:name', getProfileByName);
+// Define routes for Supplier employee operations using the appRouter
+appRouter.get('/Supplier/Employee/All', getAllEmployee);
+appRouter.get('/Supplier/Employee/:id', getEmployeeById);
+appRouter.get('/Supplier/Employee/N/:name', getEmployeeByName);
+appRouter.post('/Supplier/Employee', createEmployee);
+appRouter.put('/Supplier/Employee/:id', updateEmployee);
+appRouter.delete('/Supplier/Employee/:id', deleteEmployee);
+// Define routes for Supplier Order operations using the appRouter
+appRouter.get('/Supplier/Order/All', getAllProfileOrders);
+appRouter.get('/All/Supplier/Orders', getAllOrders);
+appRouter.get('/Supplier/Order/:id', getProfileOrderById);
+appRouter.get('/All/Supplier/Orders/:id', getOrderById);
+appRouter.post('/Supplier/Order', createOrder);
+appRouter.put('/Supplier/Order/:id', updateOrder);
+appRouter.put('/Supplier/Order/:id', setOrderCancel);
+appRouter.put('/Supplier/HsplOrder/Cancel/:id', setExternalOrderCancel);
+appRouter.get('/Supplier/HsplOrders/:id', getExternalReceivedOrderList);
+appRouter.get('/Supplier/HsplOrders/Accepted/:id', getExternalAcceptedOrderList);
+appRouter.get('/Supplier/Orders/Pending/:id', getInternalApprovePendingOrderList);
+appRouter.get('/Supplier/Orders/Approved/:id', getInternalApprovedOrderList);
+appRouter.put('/Supplier/Orders/Approve/:id', setInternalOrderApprove);
 
 // Use the appRouter for paths starting with '/api'
 app.use(appRouter);

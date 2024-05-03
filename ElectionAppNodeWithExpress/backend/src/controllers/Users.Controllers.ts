@@ -11,7 +11,7 @@ export const createEmployee = async (req: Request, res: Response): Promise<Respo
         const { user_id, pwd, name, emp_id, designation_id, emplymt_start_date, 
                 emplymt_end_date, mobile_no, email_id, official_email_id, DOB, 
                 address, city, state, country, pincode } = req.body;    
-        table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+        table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';
 
         await pool.query('INSERT INTO '+ table.Name +'(id, user_id, pwd, name, emp_id, designation_id, emplymt_start_date, emplymt_end_date, mobile_no, email_id, official_email_id, DOB, '
         + 'address, city, state, country, pincode, IsActive) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, '
@@ -32,7 +32,7 @@ export const createEmployee = async (req: Request, res: Response): Promise<Respo
 
 const getMaxId = (req: Request, res: Response): any => {
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       const response: any = pool.query('SELECT max(Id)+1 as maxId FROM '+ table.Name  );  
       return response;
     } catch (error) {
@@ -43,7 +43,7 @@ const getMaxId = (req: Request, res: Response): any => {
 
 export const getAllEmployee = async (req: Request, res: Response): Promise<Response> => {
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.Name +' order by id asc');  
       return res.status(200).json(response.rows);
     } catch (error) {
@@ -55,7 +55,7 @@ export const getAllEmployee = async (req: Request, res: Response): Promise<Respo
 export const getEmployeeById = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);  
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.Name +' WHERE id = $1', [id]);
       return res.json(response.rows);
     } catch (error) {
@@ -67,7 +67,7 @@ export const getEmployeeById = async (req: Request, res: Response): Promise<Resp
 export const getEmployeeByName = async (req: Request, res: Response): Promise<Response> => {
     const name = "'"+ req.params.name + "%'";  
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       const response: QueryResult = await pool.query('SELECT * FROM '+ table.Name +' WHERE name like $1', [name]);
       return res.json(response.rows);
     } catch (error) {
@@ -83,7 +83,7 @@ export const updateEmployee = async (req: Request, res: Response): Promise<Respo
         emplymt_end_date, mobile_no, email_id, official_email_id, DOB, 
         address, city, state, country, pincode } = req.body;  
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       await pool.query('UPDATE '+ table.Name +' SET user_id =$1, pwd=$2, name=$3, emp_id=$4, designation_id=$5, ' +
       ' emplymt_start_date=$6, emplymt_end_date=$7, mobile_no=$8, email_id=$9, official_email_id=$10, DOB=$11, ' +
       ' address =$12, city=$13, state=$14, country=$15, pincode=$16  where id=$17', [user_id, pwd, name, emp_id, 
@@ -103,7 +103,7 @@ export const deleteEmployee = async (req: Request, res: Response): Promise<Respo
     const id = parseInt(req.params.id);
     let inActive = 'N';     
     try {
-      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+      table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
       await pool.query('UPDATE '+ table.Name +' SET IsActive=$1 WHERE id = $2', [inActive, id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
@@ -115,7 +115,7 @@ export const deleteEmployee = async (req: Request, res: Response): Promise<Respo
 export const GetUserLoginDetail = async (req: Request, res: Response): Promise<Response> => {
   const { user_id, passward} = req.body;  
   try {
-    table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_Employees' : 'Ventor_Employees';
+    table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospital_users' : 'Supplier_users';;
     const response: QueryResult = await pool.query('SELECT * FROM '+ table.Name +' WHERE user_id = $1 and pwd =$2', [user_id, passward]);
     
     if(response.rowCount != null && response.rowCount > 0)
