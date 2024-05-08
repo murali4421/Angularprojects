@@ -16,7 +16,7 @@ export const createOrder = async (req: Request, res: Response): Promise<Response
          approved_date, approved_by, reason, order_cancel, order_cancel_by, order_accepted  } = req.body;
     try{
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : supplierTbl;
-        await pool.query('INSERT INTO '+ table.name +'(id, profile_id, quote_no, quote_date, quote_type, price_type, medicine_Name, description, qty, ' +
+        const response :QueryResult = await pool.query('INSERT INTO '+ table.name +'(id, profile_id, quote_no, quote_date, quote_type, price_type, medicine_Name, description, qty, ' +
                     ' expiry_date, Category, storage_type, storage_value, quoted_amount, expected_date, ' +
                     ' created_by, platform_cost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)', 
                     [id, profile_id, quote_no, quote_date, quote_type, price_type, medicine_Name, description, qty,
@@ -90,7 +90,7 @@ export const updateOrder = async (req: Request, res: Response): Promise<Response
         created_by, platform_cost, modified_date, modified_by} = req.body;  
     try {
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : supplierTbl;
-      await pool.query('UPDATE '+ table.name +' SET quote_type=$1, price_type=$2, medicine_Name=$3, description=$4, qty=$5, ' +
+        const response :QueryResult = await pool.query('UPDATE '+ table.name +' SET quote_type=$1, price_type=$2, medicine_Name=$3, description=$4, qty=$5, ' +
       ' expiry_date=$6, Category=$7, storage_type=$8, storage_value=$9, quoted_amount=$10, expected_date=$11, ' +
       ' created_by=$12, platform_cost=$13, modified_date=$14, modified_by=$15 WHERE id=$16 and order_cancel is null and approved_flag is null', 
       [quote_type, price_type, medicine_Name, description, qty,
@@ -109,7 +109,7 @@ export const setOrderCancel = async (req: Request, res: Response): Promise<Respo
     const id = parseInt(req.params.id);
     try {
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : supplierTbl;
-      await pool.query('UPDATE '+ table.name +' SET order_cancel=$1 WHERE id = $2 and order_cancel is null', ['Y',id]);
+        const response :QueryResult = await pool.query('UPDATE '+ table.name +' SET order_cancel=$1 WHERE id = $2 and order_cancel is null', ['Y',id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);
@@ -122,7 +122,7 @@ export const setInternalOrderApprove = async (req: Request, res: Response): Prom
     const { approved_date, approved_by, approved_flag, reason} = req.body; 
     try {
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : supplierTbl;
-      await pool.query('UPDATE '+ table.name +' SET approved_date=$1, approved_by=$2, approved_flag=$3, reason=$4 WHERE id = $5 and order_cancel is null ', 
+        const response :QueryResult = await pool.query('UPDATE '+ table.name +' SET approved_date=$1, approved_by=$2, approved_flag=$3, reason=$4 WHERE id = $5 and order_cancel is null ', 
       [approved_date, approved_by, approved_flag, reason, id]);
 
       return res.status(200).json(`Deleted`);
@@ -196,7 +196,7 @@ export const setExternalOrderCancel = async (req: Request, res: Response): Promi
     const profile_name = req.params.name;
     try {
         table.name = req.url.indexOf('Hospital') > -1 ?  hospitalTbl : supplierTbl;
-      await pool.query('UPDATE '+ table.name +' SET order_cancel=$1, order_cancel_by=$2 WHERE id = $3', ['Y', profile_name,id]);
+        const response :QueryResult = await pool.query('UPDATE '+ table.name +' SET order_cancel=$1, order_cancel_by=$2 WHERE id = $3', ['Y', profile_name,id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);

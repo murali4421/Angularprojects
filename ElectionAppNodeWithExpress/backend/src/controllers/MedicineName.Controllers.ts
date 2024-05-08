@@ -7,7 +7,7 @@ export const createMedicine = async (req: Request, res: Response): Promise<Respo
     const citys = getAllMedicine(req, res);
     const id = 0;
     const { Name } = req.body;    
-    await pool.query('INSERT INTO MedicineMaster(id, name) VALUES ($1, $2)', [id, Name ]);
+    const response :QueryResult = await pool.query('INSERT INTO MedicineMaster(id, name) VALUES ($1, $2)', [id, Name ]);
     return res.status(201).json({
       message: 'Created'
     });
@@ -39,7 +39,7 @@ export const updateMedicine = async (req: Request, res: Response): Promise<Respo
     console.error(req.body);
     const { name } = req.body;  
     try {
-      await pool.query('UPDATE MedicineMaster SET Designation=$1 WHERE id = $2', [name, id]);      
+      const response :QueryResult = await pool.query('UPDATE MedicineMaster SET Designation=$1 WHERE id = $2', [name, id]);      
       return res.json({
         message: 'Updated'
       });
@@ -52,7 +52,7 @@ export const updateMedicine = async (req: Request, res: Response): Promise<Respo
 export const deleteMedicine = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);
     try {
-      await pool.query('DELETE FROM MedicineMaster WHERE id = $1', [id]);
+      const response :QueryResult = await pool.query('DELETE FROM MedicineMaster WHERE id = $1', [id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);

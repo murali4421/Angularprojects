@@ -7,7 +7,7 @@ export const createState = async (req: Request, res: Response): Promise<Response
     const citys = getAllStates(req, res);
     const id = 0;
     const { country_id, state } = req.body;    
-    await pool.query('INSERT INTO StateMaster(id, State, Country_id) VALUES ($1, $2, $3)', [id, state, country_id ]);
+    const response :QueryResult = await pool.query('INSERT INTO StateMaster(id, State, Country_id) VALUES ($1, $2, $3)', [id, state, country_id ]);
     return res.status(201).json({
       message: 'Created'
     });
@@ -39,7 +39,7 @@ export const updateState = async (req: Request, res: Response): Promise<Response
     console.error(req.body);
     const {State, Country_id} = req.body;  
     try {
-      await pool.query('UPDATE StateMaster SET State=$1, Country_id=$2 WHERE id = $3', [State, Country_id, id]);      
+      const response :QueryResult = await pool.query('UPDATE StateMaster SET State=$1, Country_id=$2 WHERE id = $3', [State, Country_id, id]);      
       return res.json({
         message: 'Updated'
       });
@@ -52,7 +52,7 @@ export const updateState = async (req: Request, res: Response): Promise<Response
 export const deleteState = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);
     try {
-      await pool.query('DELETE FROM StateMaster WHERE id = $1', [id]);
+      const response :QueryResult = await pool.query('DELETE FROM StateMaster WHERE id = $1', [id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);

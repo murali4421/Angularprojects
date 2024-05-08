@@ -13,7 +13,7 @@ export const createProfile = async (req: Request, res: Response): Promise<Respon
         const status = 'Verification Inprogress';
         const { name, licence_no, registration_no, phone_no, email_id, website, fax_no, 
                 address, city, state, country, pincode} = req.body;    
-        await pool.query('INSERT INTO '+ table.Name +'(id, name, licence_no, registration_no, phone_no, email_id, website, fax_no, '
+        const response : QueryResult = await pool.query('INSERT INTO '+ table.Name +'(id, name, licence_no, registration_no, phone_no, email_id, website, fax_no, '
         + 'address, city, state, country, pincode, IsVerified, RejectedReason, IsActive) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, '
         + ' $11, $12, $13, $14 )', [id, name, licence_no, registration_no, phone_no, email_id, website, fax_no, 
             address, city, state, country, pincode, 'N','', 'Y' ]);
@@ -106,7 +106,7 @@ export const updateProfile = async (req: Request, res: Response): Promise<Respon
 
     try {
       table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospitals' : 'Suppliers';
-      await pool.query('UPDATE '+ table.Name +' SET name=$1, licence_no=$2, registration_no=$3, phone_no=$4, email_id=$5, website=$6, fax_no=$7, '
+      const response :QueryResult = await pool.query('UPDATE '+ table.Name +' SET name=$1, licence_no=$2, registration_no=$3, phone_no=$4, email_id=$5, website=$6, fax_no=$7, '
         + ' address=$8, city=$9, state=$10, country=$11, pincode=$12', [name, licence_no, registration_no, phone_no, email_id, website, fax_no, 
         address, city, state, country, pincode, id]);      
       return res.json({
@@ -123,7 +123,7 @@ export const deleteProfile = async (req: Request, res: Response): Promise<Respon
     let inActive = 'N';     
     try {
       table.Name = req.url.indexOf('Hospital') > -1 ? 'Hospitals' : 'Suppliers';
-      await pool.query('UPDATE '+ table.Name +' SET IsActive=$1 WHERE id = $2', [inActive, id]);
+      const response :QueryResult = await pool.query('UPDATE '+ table.Name +' SET IsActive=$1 WHERE id = $2', [inActive, id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);

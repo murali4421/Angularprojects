@@ -4,6 +4,8 @@ import { QueryResult } from 'pg';
 import { pool } from './db/database';
 
 export const createDesignation = async (req: Request, res: Response): Promise<Response> => {
+  try
+  { 
     const citys = getAllDesignation(req, res);
     const id = 0;
     const { Designation } = req.body;    
@@ -11,6 +13,12 @@ export const createDesignation = async (req: Request, res: Response): Promise<Re
     return res.status(201).json({
       message: 'Created'
     });
+  } 
+  catch (error) 
+  {
+    console.error(error);
+    return res.status(500).json('Internal Server error');
+  }
 };
 
 export const getAllDesignation= async (req: Request, res: Response): Promise<Response> => {
@@ -35,11 +43,12 @@ export const getDesignationById = async (req: Request, res: Response): Promise<R
 }
 
 export const updateDesignation = async (req: Request, res: Response): Promise<Response> => {
-    const id = parseInt(req.params.id);
-    console.error(req.body);
-    const {Designation} = req.body;  
+      
     try {
-      await pool.query('UPDATE DesignationMaster SET Designation=$1 WHERE id = $2', [Designation, id]);      
+      const id = parseInt(req.params.id);
+      console.error(req.body);
+      const {Designation} = req.body;
+      const response: QueryResult = await pool.query('UPDATE DesignationMaster SET Designation=$1 WHERE id = $2', [Designation, id]);      
       return res.json({
         message: 'Updated'
       });
@@ -50,13 +59,13 @@ export const updateDesignation = async (req: Request, res: Response): Promise<Re
 }
 
 export const deleteDesignation = async (req: Request, res: Response): Promise<Response> => {
-    const id = parseInt(req.params.id);
+    
     try {
-      await pool.query('DELETE FROM DesignationMaster WHERE id = $1', [id]);
+      const id = parseInt(req.params.id);
+      const response: QueryResult = await pool.query('DELETE FROM DesignationMaster WHERE id = $1', [id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);
       return res.status(500).json('Internal Server error');
     }
 }
-

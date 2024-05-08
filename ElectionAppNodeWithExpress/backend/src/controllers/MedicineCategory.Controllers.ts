@@ -7,7 +7,7 @@ export const createCategory = async (req: Request, res: Response): Promise<Respo
     const citys = getAllCategory(req, res);
     const id = 0;
     const { Category } = req.body;    
-    await pool.query('INSERT INTO CategoryMaster(id, name) VALUES ($1, $2)', [id, Category ]);
+    const response :QueryResult = await pool.query('INSERT INTO CategoryMaster(id, name) VALUES ($1, $2)', [id, Category ]);
     return res.status(201).json({
       message: 'Created'
     });
@@ -39,7 +39,7 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
     console.error(req.body);
     const { Category } = req.body;  
     try {
-      await pool.query('UPDATE CategoryMaster SET Category=$1 WHERE id = $2', [Category, id]);      
+      const response :QueryResult = await pool.query('UPDATE CategoryMaster SET Category=$1 WHERE id = $2', [Category, id]);      
       return res.json({
         message: 'Updated'
       });
@@ -52,7 +52,7 @@ export const updateCategory = async (req: Request, res: Response): Promise<Respo
 export const deleteCategory = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);
     try {
-      await pool.query('DELETE FROM CategoryMaster WHERE id = $1', [id]);
+      const response :QueryResult = await pool.query('DELETE FROM CategoryMaster WHERE id = $1', [id]);
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);

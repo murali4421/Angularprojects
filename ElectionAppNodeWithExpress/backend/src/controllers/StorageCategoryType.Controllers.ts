@@ -7,7 +7,7 @@ export const createStorageCategoryType = async (req: Request, res: Response): Pr
     const citys = getAllStorageCategoryTypes(req, res);
     const id = 0;
     const { Category_id, Storage_Category_Type } = req.body;    
-    await pool.query('INSERT INTO StorageCategoryTypeMaster(id, Category_id, Storage_Category_Type) VALUES ($1, $2, $3)', [id, Category_id, Storage_Category_Type ]);
+    const response :QueryResult = await pool.query('INSERT INTO StorageCategoryTypeMaster(id, Category_id, Storage_Category_Type) VALUES ($1, $2, $3)', [id, Category_id, Storage_Category_Type ]);
     return res.status(201).json({
       message: 'Created'
     });
@@ -39,7 +39,12 @@ export const updateStorageCategoryType = async (req: Request, res: Response): Pr
     console.error(req.body);
     const {Category_id, Storage_Category_Type} = req.body;  
     try {
-      await pool.query('UPDATE StorageCategoryTypeMaster SET Category_id=$1, Storage_Category_Type=$2 WHERE id = $3', [Category_id, Storage_Category_Type, id]);      
+      const response :QueryResult = await pool.query('UPDATE StorageCategoryTypeMaster SET Category_id=$1, Storage_Category_Type=$2 WHERE id = $3', [Category_id, Storage_Category_Type, id]);      
+      
+      if(parseInt(response.rows.toString())=== 0 ){
+        return res.status(200).json(`No Storage Category Type found with the given ID`);
+    }
+      
       return res.json({
         message: 'Updated'
       });
@@ -52,7 +57,12 @@ export const updateStorageCategoryType = async (req: Request, res: Response): Pr
 export const deleteStorageCategoryType = async (req: Request, res: Response): Promise<Response> => {
     const id = parseInt(req.params.id);
     try {
-      await pool.query('DELETE FROM StorageCategoryTypeMaster WHERE id = $1', [id]);
+      const response :QueryResult = await pool.query('DELETE FROM StorageCategoryTypeMaster WHERE id = $1', [id]);
+      
+      if(parseInt(response.rows.toString())=== 0 ){
+          return res.status(200).json(`No Storage Category Type found with the given ID`);
+      }
+      
       return res.status(200).json(`Deleted`);
     } catch (error) {
       console.error(error);
